@@ -1,9 +1,10 @@
 application:
     build: code
     volumes:
-        - ./../perso/symfony:/var/www/symfony
+        - ./../../perso/symfony:/var/www/symfony
         - ./logs/symfony:/var/www/symfony/app/logs
     tty: true
+
 db:
     image: mysql
     ports:
@@ -21,6 +22,7 @@ php:
         - application
     links:
         - db
+
 nginx:
     build: nginx
     ports:
@@ -42,3 +44,9 @@ elk:
         - application
         - php
         - nginx
+
+rmq:
+    image: "rabbitmq:management"
+    hostname: "symfony.dev"
+    ports:
+       - '15672:15672'
