@@ -46,7 +46,7 @@ elk:
         - nginx
 
 rmq:
-    image: "rabbitmq:management"
-    hostname: "symfony.dev"
+    image: rabbitmq:management
+    hostname: symfony.dev
     ports:
-       - '15672:15672'
+       - 15672:15672
