@@ -48,8 +48,8 @@ rmq:
     ports:
        - 15672:15672
 
-node:
-    build: node
+#node:
+#    build: node
 
 elk:
     image: willdurand/elk
