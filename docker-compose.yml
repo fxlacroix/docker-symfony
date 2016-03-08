@@ -29,7 +29,6 @@ php:
     links:
         - db
         - rmq
-        - node
 
 nginx:
     build: nginx
@@ -48,9 +47,6 @@ rmq:
     ports:
        - 15672:15672
 
-node:
-    build: node
-
 elk:
     image: willdurand/elk
     ports:
@@ -63,4 +59,3 @@ elk:
         - php
         - nginx
         - rmq
-        - node
