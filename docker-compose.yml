@@ -5,15 +5,21 @@ application:
         - ./logs/symfony:/var/www/symfony/app/logs
     tty: true
 
+mysqldata:
+  image: harshjv/mysql-data:0.9.16-1.0
+
 db:
     image: mysql
     ports:
         - 3306:3306
+    volumes_from:
+        - mysqldata
     environment:
         MYSQL_ROOT_PASSWORD: test
         MYSQL_DATABASE: symfony
         MYSQL_USER: test
         MYSQL_PASSWORD: test
+
 php:
     build: php-fpm
     ports:
@@ -22,6 +28,8 @@ php:
         - application
     links:
         - db
+        - rmq
+        - node
 
 nginx:
     build: nginx
@@ -33,6 +41,16 @@ nginx:
         - application
     volumes:
         - ./logs/nginx/:/var/log/nginx
+
+rmq:
+    image: rabbitmq:management
+    hostname: symfony.dev
+    ports:
+       - 15672:15672
+
+node:
+    build: node
+
 elk:
     image: willdurand/elk
     ports:
@@ -44,9 +62,5 @@ elk:
         - application
         - php
         - nginx
-
-rmq:
-    image: rabbitmq:management
-    hostname: symfony.dev
-    ports:
-       - 15672:15672
+        - rmq
+        - node

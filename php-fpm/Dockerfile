@@ -14,6 +14,7 @@ RUN apt-get update && apt-get install -y \
         php5-mcrypt \
         php5-memcache \
         php5-mysql \
+        php5-sqlite \
         php5-xdebug
 
 ADD symfony.ini /etc/php5/fpm/conf.d/
