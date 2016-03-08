@@ -29,7 +29,7 @@ php:
     links:
         - db
         - rmq
-        - node
+#        - node
 
 nginx:
     build: nginx
@@ -63,4 +63,4 @@ elk:
         - php
         - nginx
         - rmq
-        - node
+#        - node
