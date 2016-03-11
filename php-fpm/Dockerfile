@@ -3,6 +3,7 @@ FROM debian:jessie
 MAINTAINER François-Xavier LACROIX <fxlacroix@gmail.com>
 
 RUN apt-get update && apt-get install -y \
+        memcached \
         php5-apcu \
         php5-cli \
         php5-common  \
@@ -25,6 +26,7 @@ ADD xdebug.ini /etc/php5/cli/conf.d/
 ADD symfony.pool.conf /etc/php5/fpm/pool.d/
 
 RUN usermod -u 1000 www-data
+RUN service memcached start
 
 CMD ["php5-fpm", "-F"]
 
