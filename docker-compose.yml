@@ -20,6 +20,15 @@ db:
         MYSQL_USER: test
         MYSQL_PASSWORD: test
 
+memcached:
+    image: memcached
+
+rmq:
+    image: rabbitmq:management
+    hostname: symfony.dev
+    ports:
+       - 15672:15672
+
 php:
     build: php-fpm
     ports:
@@ -29,6 +38,7 @@ php:
     links:
         - db
         - rmq
+        - memcached
 
 nginx:
     build: nginx
@@ -40,12 +50,6 @@ nginx:
         - application
     volumes:
         - ./logs/nginx/:/var/log/nginx
-
-rmq:
-    image: rabbitmq:management
-    hostname: symfony.dev
-    ports:
-       - 15672:15672
 
 elk:
     image: willdurand/elk
